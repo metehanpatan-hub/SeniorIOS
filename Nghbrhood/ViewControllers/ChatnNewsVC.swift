@@ -1,18 +1,24 @@
 //
-//  MainVC.swift
+//  ChatnNewsVC.swift
 //  Nghbrhood
 //
-//  Created by CTIS Student on 16.02.2021.
+//  Created by CTIS Student on 28.02.2021.
 //  Copyright © 2021 Nghbrhood. All rights reserved.
 //
 
 import UIKit
+import WebKit
 
-class MainVC: UIViewController {
+class ChatnNewsVC: UIViewController {
 
+    @IBOutlet weak var mWebView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //let web_url = URL(string: "https://www.google.com.tr/?client=safari")!
+        let web_url = URL(string:"http://94.103.47.43:3000/")!
+        let web_request = URLRequest(url: web_url)
+        mWebView.load(web_request)
+        
         // Do any additional setup after loading the view.
     }
     
