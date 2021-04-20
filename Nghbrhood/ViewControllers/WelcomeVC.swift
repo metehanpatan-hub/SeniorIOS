@@ -20,6 +20,7 @@ class WelcomeVC: UIViewController {
         registerButton.layer.borderWidth = 1
         loginBtn.layer.cornerRadius = 5
         loginBtn.layer.borderWidth = 1
+        
     }
     
 

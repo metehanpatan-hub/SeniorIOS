@@ -14,6 +14,7 @@ class MainPageVC: UIViewController {
     @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var shopsBtn: UIImageView!
     @IBOutlet weak var billsBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,6 +27,18 @@ class MainPageVC: UIViewController {
     }
     
     @IBAction func backToMain( _ seg: UIStoryboardSegue) {
+    }
+    @IBAction func onBills(_ sender: UIButton) {
+        let mAlert = UIAlertController(title: "Bill Management", message: "", preferredStyle: UIAlertController.Style.alert)
+        mAlert.addAction(UIAlertAction(title: "Set Bill Alarm", style: UIAlertAction.Style.default, handler: {_ in
+            CATransaction.setCompletionBlock({
+                self.performSegue(withIdentifier: "addBills", sender: nil)
+            })}))
+        mAlert.addAction(UIAlertAction(title: "Pay Bills", style: UIAlertAction.Style.default, handler: {_ in
+            CATransaction.setCompletionBlock({
+                self.performSegue(withIdentifier: "payBills", sender: nil)
+            })}))
+        self.present(mAlert, animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation

@@ -39,9 +39,11 @@ class LoginVC: UIViewController{
         }
         else{
             //Auth
-            performSegue(withIdentifier: "loginSegue", sender: self)
             let mAlert = UIAlertController(title: "Welcome", message: "Welcome to the Nghbrhood!", preferredStyle: UIAlertController.Style.alert)
-            mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+            mAlert.addAction(UIAlertAction(title: "Go", style: UIAlertAction.Style.default, handler: {_ in
+                CATransaction.setCompletionBlock({
+                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                })}))
             self.present(mAlert, animated: true, completion: nil)
         }
     }
@@ -51,4 +53,5 @@ class LoginVC: UIViewController{
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
         return passwordTest.evaluate(with: password)
     }*/
+    
 }

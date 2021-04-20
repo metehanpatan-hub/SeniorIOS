@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import WebKit
 
 class BillsMainVC: UIViewController {
 
-    @IBOutlet weak var mBills: UIButton!
-    @IBOutlet weak var addBills: UIButton!
+    
+    @IBOutlet weak var mWebView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let web_url = URL(string:"https://www.faturamatik.com.tr/tr/hizmetlerimiz/fatura-ode#menu0")!
+        let web_request = URLRequest(url: web_url)
+        mWebView.load(web_request)
         // Do any additional setup after loading the view.
-        mBills.layer.cornerRadius = 5
-        mBills.layer.borderWidth = 1
-        addBills.layer.cornerRadius = 5
-        addBills.layer.borderWidth = 1
     }
     @IBAction func backToBill( _ seg: UIStoryboardSegue) {
     }

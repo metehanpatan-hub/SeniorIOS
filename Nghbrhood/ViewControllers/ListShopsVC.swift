@@ -12,6 +12,7 @@ import CoreLocation
 
 class ListShopsVC: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate {
 
+    @IBOutlet weak var goChat: UIButton!
     let locationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
@@ -19,10 +20,15 @@ class ListShopsVC: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
+        goChat.layer.cornerRadius = 5
+        goChat.layer.borderWidth = 1
         setupMapView()
         checkLocationServices()
         let loc = CLLocationCoordinate2DMake(39.881556, 32.760431)
+        let loc2 = CLLocationCoordinate2DMake(39.857065, 32.755671)
         setPinUsingMKPointAnnotation(location: loc)
+        setPinUsingMKPointAnnotation2(location: loc2)
+        
     }
     func setupMapView() {
         view.addSubview(mapView)
@@ -83,13 +89,24 @@ class ListShopsVC: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate
          locationManager.desiredAccuracy = kCLLocationAccuracyBest
      }
     func setPinUsingMKPointAnnotation(location: CLLocationCoordinate2D){
-       let annotation = MKPointAnnotation()
-       annotation.coordinate = location
-       annotation.title = "Cagdas Market"
-       annotation.subtitle = "Supermarket in Bilkent 2"
-       let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 39.881556, longitudinalMeters: 32.760431)
-       mapView.setRegion(coordinateRegion, animated: true)
-       mapView.addAnnotation(annotation)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location
+        annotation.title = "Cagdas Market"
+        annotation.subtitle = "Supermarket in Bilkent 2"
+        
+        let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 39.881556, longitudinalMeters: 32.760431)
+        mapView.setRegion(coordinateRegion, animated: true)
+        mapView.addAnnotation(annotation)
+        
+    }
+    func setPinUsingMKPointAnnotation2(location: CLLocationCoordinate2D){
+        let annotation2 = MKPointAnnotation()
+        annotation2.coordinate = location
+        annotation2.title = "Ege Sarkuteri"
+        annotation2.subtitle = "Supermarket in Bilkent 3"
+        let coordinateRegion2 = MKCoordinateRegion(center: annotation2.coordinate, latitudinalMeters: 39.857065, longitudinalMeters: 32.755671)
+        mapView.setRegion(coordinateRegion2, animated: true)
+        mapView.addAnnotation(annotation2)
     }
     /*
     // MARK: - Navigation
