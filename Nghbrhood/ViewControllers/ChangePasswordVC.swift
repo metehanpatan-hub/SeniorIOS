@@ -44,11 +44,11 @@ class ChangePasswordVC: UIViewController {
             }
             else{
                 let mAlert = UIAlertController(title: "Successful", message: "Password changed!", preferredStyle: UIAlertController.Style.alert)
-                mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+                mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: {_ in
+                    CATransaction.setCompletionBlock({
+                        self.performSegue(withIdentifier: "backToLogin", sender: self)
+                    })}))
                 self.present(mAlert, animated: true, completion: nil)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                    self.performSegue(withIdentifier: "backToLogin", sender: self)
-                }
             }
         }
     }

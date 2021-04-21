@@ -8,62 +8,60 @@
 
 import UIKit
 import EventKit
+import EventKitUI
 
-class AddBillsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddBillsVC: UIViewController, EKEventViewDelegate {
+    
 
-    private var pickerArray = ["Water", "Electric", "Gas", "Internet"]
-    @IBOutlet weak var typePicker: UIPickerView!
+    let eventStore = EKEventStore()
+    
     @IBOutlet weak var datePick: UIDatePicker!
-    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var endDate: UIDatePicker!
     @IBOutlet weak var bName: UITextField!
-    @IBOutlet weak var amount: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        typePicker.dataSource = self
-        typePicker.delegate = self
         // Do any additional setup after loading the view.
-        addBtn.layer.cornerRadius = 5
-        addBtn.layer.borderWidth = 1
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTap))
     }
     
+    @objc func didTap(){
+        
+        let name = String(bName.text!)
+        if name.isEmpty {
+            let mAlert = UIAlertController(title: "Error", message: "Please give a name to your bill!", preferredStyle:UIAlertController.Style.alert)
+                mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+            self.present(mAlert, animated: true, completion: nil)
+        }
+        else{
+            eventStore.requestAccess(to: .event){ [ weak self ]
+                success, error in
+                if success, error == nil{
+                    DispatchQueue.main.async {
+                        let name = String(self?.bName.text! ?? "")
+                        guard let store = self?.eventStore else { return }
+                        let newEvent = EKEvent(eventStore: store)
+                        newEvent.title = name
+                        newEvent.startDate = self?.datePick.date
+                        newEvent.endDate = self?.endDate.date
+                        
+                        let vc = EKEventViewController()
+                        vc.delegate = self
+                        vc.event = newEvent
+                        let navi = UINavigationController(rootViewController: vc)
+                        self?.present(navi, animated: true)
+                    }
+                }
+            }
+        }
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return pickerArray.count}
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return pickerArray[row]}
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {}
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    @IBAction func onAdd(_ sender: UIButton) {
-        var name = String(bName.text!) ?? ""
-        var pay = String(amount.text!) ?? ""
+    
+    func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
         
-        if name.isEmpty || pay.isEmpty {
-            let mAlert = UIAlertController(title: "Error", message: "Missing name or bill amount!", preferredStyle: UIAlertController.Style.alert)
-            mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
-            self.present(mAlert, animated: true, completion: nil)
-        }
-        else{
-            //Add Bill Operation
-            let mAlert = UIAlertController(title: "Successful", message: "Bill added to reminder!", preferredStyle: UIAlertController.Style.alert)
-            mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
-            self.present(mAlert, animated: true, completion: nil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                self.performSegue(withIdentifier: "backToBill", sender: self)
-            }
-        }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -14,6 +14,7 @@ class MainPageVC: UIViewController {
     @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var shopsBtn: UIImageView!
     @IBOutlet weak var billsBtn: UIButton!
+    @IBOutlet weak var mdate: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,12 @@ class MainPageVC: UIViewController {
         shopsBtn.layer.borderWidth = 1
         billsBtn.layer.cornerRadius = 5
         billsBtn.layer.borderWidth = 1
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YY/MM/dd, hh:mm"
+        mdate.text = dateFormatter.string(from: date)
+        
     }
     
     @IBAction func backToMain( _ seg: UIStoryboardSegue) {
