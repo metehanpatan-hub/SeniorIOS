@@ -10,9 +10,8 @@ import UIKit
 import EventKit
 import EventKitUI
 
-class AddBillsVC: UIViewController, EKEventViewDelegate {
+class AddBillsVC: UIViewController, EKEventViewDelegate, EKEventEditViewDelegate {
     
-
     let eventStore = EKEventStore()
     
     @IBOutlet weak var datePick: UIDatePicker!
@@ -26,7 +25,7 @@ class AddBillsVC: UIViewController, EKEventViewDelegate {
     }
     
     @objc func didTap(){
-        
+        //Check Bill Name
         let name = String(bName.text!)
         if name.isEmpty {
             let mAlert = UIAlertController(title: "Error", message: "Please give a name to your bill!", preferredStyle:UIAlertController.Style.alert)
@@ -34,6 +33,7 @@ class AddBillsVC: UIViewController, EKEventViewDelegate {
             self.present(mAlert, animated: true, completion: nil)
         }
         else{
+            //Access Calender
             eventStore.requestAccess(to: .event){ [ weak self ]
                 success, error in
                 if success, error == nil{
@@ -45,11 +45,19 @@ class AddBillsVC: UIViewController, EKEventViewDelegate {
                         newEvent.startDate = self?.datePick.date
                         newEvent.endDate = self?.endDate.date
                         
+                        let otherVC = EKEventEditViewController()
+                        otherVC.editViewDelegate = self
+                        otherVC.eventStore = store
+                        otherVC.event = newEvent
+                        self?.present(otherVC, animated: true, completion: nil)
+                        /*
                         let vc = EKEventViewController()
                         vc.delegate = self
                         vc.event = newEvent
                         let navi = UINavigationController(rootViewController: vc)
-                        self?.present(navi, animated: true)
+                        self?.present(navi, animated: true)*/
+                        
+                        
                     }
                 }
             }
@@ -59,9 +67,15 @@ class AddBillsVC: UIViewController, EKEventViewDelegate {
         self.view.endEditing(true)
     }
     
-    
     func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        controller.dismiss(animated: true, completion: nil)
         
+        //let mAlert = UIAlertController(title: "Success", message: "Bill added to your calender!", preferredStyle:UIAlertController.Style.alert)
+        //mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+        //self.present(mAlert, animated: true, completion: nil)
     }
-
+    
+    func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
