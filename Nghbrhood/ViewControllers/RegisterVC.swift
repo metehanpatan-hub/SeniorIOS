@@ -40,13 +40,22 @@ class RegisterVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 case 1334:
                     //print("iPhone 6/6S/7/8")
                     logo.isHidden = true
-
+                case 1920, 2208:
+                    //print("iPhone 6+/6S+/7+/8+")
+                    logo.isHidden = true
                 default:
                     print("Unknown")
-                }
             }
- 
+        }
+        //Check Dark or Light Mode
+        if traitCollection.userInterfaceStyle == .light {
+            logo.image = UIImage(named: "logo")
+        }
+        else {
+                logo.image = UIImage(named: "logo_white")
+        }
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

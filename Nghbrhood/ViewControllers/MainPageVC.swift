@@ -15,6 +15,7 @@ class MainPageVC: UIViewController {
     @IBOutlet weak var shopsBtn: UIImageView!
     @IBOutlet weak var billsBtn: UIButton!
     @IBOutlet weak var mdate: UILabel!
+    @IBOutlet weak var logo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,13 @@ class MainPageVC: UIViewController {
         dateFormatter.dateFormat = "YY/MM/dd, hh:mm"
         mdate.text = dateFormatter.string(from: date)
         
+        //Check Dark or Light Mode
+        if traitCollection.userInterfaceStyle == .light {
+            logo.image = UIImage(named: "logo")
+        }
+        else {
+            logo.image = UIImage(named: "logo_white")
+        }
     }
     
     @IBAction func backToMain( _ seg: UIStoryboardSegue) {

@@ -17,18 +17,27 @@ class AddBillsVC: UIViewController, EKEventViewDelegate, EKEventEditViewDelegate
     @IBOutlet weak var datePick: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
     @IBOutlet weak var bName: UITextField!
+    @IBOutlet weak var logo: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTap))
+        
+        //Check Dark or Light Mode
+        if traitCollection.userInterfaceStyle == .light {
+            logo.image = UIImage(named: "logo")
+        }
+        else {
+            logo.image = UIImage(named: "logo_white")
+        }
     }
     
     @objc func didTap(){
         //Check Bill Name
         let name = String(bName.text!)
         if name.isEmpty {
-            let mAlert = UIAlertController(title: "Error", message: "Please give a name to your bill!", preferredStyle:UIAlertController.Style.alert)
+            let mAlert = UIAlertController(title: "Error", message: "Please, give a name to your bill!", preferredStyle:UIAlertController.Style.alert)
                 mAlert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
             self.present(mAlert, animated: true, completion: nil)
         }
