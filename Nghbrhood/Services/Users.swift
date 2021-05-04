@@ -12,5 +12,6 @@ struct Users: Decodable {
     let id: Int
     let username: String
     let name: String
-    let age: Int
+    let surname: String
+    let email: String
 }

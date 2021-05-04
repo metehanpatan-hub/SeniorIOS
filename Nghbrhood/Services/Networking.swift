@@ -16,7 +16,7 @@ enum MyResult<T, E: Error> {
 
 class Networking {
     
-    let baseUrl = "localhost"
+    let baseUrl = "localhost:80"
     
     func handleResponse(for request: URLRequest,
                         completion: @escaping (Result<Users, Error>) -> Void) {
@@ -95,7 +95,6 @@ class Networking {
         
         components.queryItems = queryItems
         
-        // username=kiloloco&password=pass123
         let queryItemData = components.query?.data(using: .utf8)
         
         request.httpBody = queryItemData
