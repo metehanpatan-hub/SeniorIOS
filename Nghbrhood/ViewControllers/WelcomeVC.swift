@@ -32,10 +32,9 @@ class WelcomeVC: UIViewController {
 
         // Do any additional setup after loading the view.
         registerButton.layer.cornerRadius = 5
-        registerButton.layer.borderWidth = 1
         loginBtn.layer.cornerRadius = 5
-        loginBtn.layer.borderWidth = 1
-        
+        registerButton.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
+        loginBtn.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
         //Check Dark or Light Mode
         if traitCollection.userInterfaceStyle == .light {
             logo.image = UIImage(named: "logo")

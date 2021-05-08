@@ -21,7 +21,7 @@ class ListShopsVC: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate
     }
     override func viewDidAppear(_ animated: Bool) {
         goChat.layer.cornerRadius = 5
-        goChat.layer.borderWidth = 1
+        goChat.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
         setupMapView()
         checkLocationServices()
         let loc = CLLocationCoordinate2DMake(39.881556, 32.760431)

@@ -19,7 +19,7 @@ class RegisterVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     @IBOutlet weak var uName: UITextField!
     @IBOutlet weak var eMail: UITextField!
     
-    private var pickerArray = ["Resident", "Apartment Manager", "Shop"]
+    private var pickerArray = ["Resident", "Apartment Manager"]
     
     var roww = 0
 
@@ -29,7 +29,7 @@ class RegisterVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         picker.dataSource = self
         picker.delegate = self
         registerBtn.layer.cornerRadius = 5
-        registerBtn.layer.borderWidth = 1
+        registerBtn.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
         
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
@@ -65,28 +65,6 @@ class RegisterVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return pickerArray.count}
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return pickerArray[row]}
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        switch row {
-        case 0:
-            address.placeholder = "Address"
-            address.textContentType = UITextContentType.fullStreetAddress
-            roww = row
-        case 1:
-            address.placeholder = "Address"
-            address.textContentType = UITextContentType.fullStreetAddress
-            roww = row
-
-        case 2:
-            address.placeholder = "Delivery Address"
-            address.textContentType = UITextContentType.location
-            roww = row
-
-        default:
-            address.placeholder = "Address"
-            address.textContentType = UITextContentType.fullStreetAddress
-            roww = row
-            
-        }
 
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

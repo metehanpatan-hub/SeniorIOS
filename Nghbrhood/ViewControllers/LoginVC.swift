@@ -22,8 +22,7 @@ class LoginVC: UIViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         mButton.layer.cornerRadius = 5
-        mButton.layer.borderWidth = 1
-        
+        mButton.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
         //Check Dark or Light Mode
         if traitCollection.userInterfaceStyle == .light {
             logo.image = UIImage(named: "logo")

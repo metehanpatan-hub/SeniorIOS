@@ -21,7 +21,7 @@ class ChangePasswordVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         changeBtn.layer.cornerRadius = 5
-        changeBtn.layer.borderWidth = 1
+        changeBtn.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
         
         //Check Dark or Light Mode
         if traitCollection.userInterfaceStyle == .light {

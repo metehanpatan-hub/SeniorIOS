@@ -21,15 +21,15 @@ class MainPageVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         chatBtn.layer.cornerRadius = 5
-        chatBtn.layer.borderWidth = 1
         shopsBtn.layer.cornerRadius = 5
-        shopsBtn.layer.borderWidth = 1
         billsBtn.layer.cornerRadius = 5
-        billsBtn.layer.borderWidth = 1
+        chatBtn.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
+        shopsBtn.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
+        billsBtn.backgroundColor = UIColor(red: 6/255, green: 104/255, blue: 181/255, alpha: 1.0)
         
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YY/MM/dd, hh:mm"
+        dateFormatter.dateFormat = "dd/MM/YY, hh:mm"
         mdate.text = dateFormatter.string(from: date)
         
         //Check Dark or Light Mode
@@ -45,7 +45,7 @@ class MainPageVC: UIViewController {
     }
     @IBAction func onBills(_ sender: UIButton) {
         let mAlert = UIAlertController(title: "Bill Management", message: "", preferredStyle: UIAlertController.Style.alert)
-        mAlert.addAction(UIAlertAction(title: "Set Bill Alarm", style: UIAlertAction.Style.default, handler: {_ in
+        mAlert.addAction(UIAlertAction(title: "Set Reminder", style: UIAlertAction.Style.default, handler: {_ in
             CATransaction.setCompletionBlock({
                 self.performSegue(withIdentifier: "addBills", sender: nil)
             })}))
